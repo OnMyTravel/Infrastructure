@@ -1,0 +1,4 @@
+- name: Create the ansible user
+  user: name={{ item }}
+  with_items:
+    - ansible

@@ -1,0 +1,9 @@
+- name: Disallow root SSH access
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
+  notify:
+    - restart ssh
+
+- name: Allow only ansible user to login
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^AllowUsers" line="AllowUsers ansible" state=present
+  notify:
+    - restart ssh
