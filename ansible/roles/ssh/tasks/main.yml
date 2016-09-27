@@ -4,6 +4,16 @@
     - restart ssh
 
 - name: Allow only ansible user to login
-  lineinfile: dest=/etc/ssh/sshd_config regexp="^AllowUsers" line="AllowUsers ansible" state=present
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^AllowUsers" line="AllowUsers {{remote_user}}" state=present
+  notify:
+    - restart ssh
+
+- name: Disallow password authentication
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+  notify:
+    - restart ssh
+
+- name: change SSHD port
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^Port 22" line="Port{{ ssh_port }}" state=present
   notify:
     - restart ssh

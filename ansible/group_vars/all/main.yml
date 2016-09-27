@@ -1,0 +1,2 @@
+remote_user: ansible
+ssh_port: 2222
