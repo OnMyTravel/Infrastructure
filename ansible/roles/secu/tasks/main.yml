@@ -1,0 +1,11 @@
+# Fail2Ban installation in order to prevent
+# multiple SSH connection attempts failed
+- name: Install fail2ban
+  apt: name=fail2ban state=installed
+
+- name : Enable UFW and close all ports
+  ufw: state=enabled policy=deny
+
+- name : Allow all access to tcp port SSH_PORT, 80 and 443
+  ufw: rule=allow port={{item}} proto=tcp
+  with_items: [2222, 80, 443]

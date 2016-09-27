@@ -1,0 +1,8 @@
+# Playbook
+# Let's set-up the server
+# (same users, groups, etc ...)
+- hosts: master
+  remote_user: ansible
+  become: yes
+  roles:
+    - secu
