@@ -13,6 +13,7 @@ boxes/*
 /website/build
 /vagrant-spec.config.rb
 *.retry
+/vagrant/keys/*
 
 # Bundler/Rubygems
 *.gem
