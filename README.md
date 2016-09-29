@@ -35,13 +35,13 @@ It should ask you to enter a password. Type `vagrant`(default password for the d
 
 The first step to set the vagrant machine ready to host the application is to start with this first playbook. It creates the ansible user and secure the SSH connection.
 
-But first, it's necessary to generate an SSH key that you will use to authenticate yourself on the server.
+But first, it's necessary to generate an SSH key that you will use to authenticate yourself on the server. **This step is optional if you already have an id_rsa keyfile.**
 
 As usual, to generate your SSH key:
 
     ssh-keygen -t rsa -b 4096 -C "<YOUR EMAIL HERE>"
 
-It will ask you to select the directory where you want to generate the SSH key. It is usually created as `/Users/<YOU>/.ssh/id_rsa` but on this project, you have to generate it as `<PROJECT PATH>/vagrant/keys/ssh_key`. You can either do this or change the SSH keypath in the project.
+It will ask you to select the directory where you want to generate the SSH key. It is usually created as `/Users/<YOU>/.ssh/id_rsa`. You can either use this one or change the SSH keypath in the project.
 
 Then, it's simple:
 
