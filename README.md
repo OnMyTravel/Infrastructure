@@ -22,7 +22,9 @@ It should take a moment, especially if you have never downloaded the Ubuntu pack
 When the process is completed, let's check that the SSH connection to the local virtual machine is allowed to ansible.
 
     cd ../ansible/
-    ansible all -m ping -u vagrant --ask-pass
+    ansible vagrant -m ping -u vagrant --ask-pass
+
+Where `vagrant` is the group of machine we want to ping and `vagrant` (the second one) is the ssh username.
 
 It should ask you to enter a password. Type `vagrant`(default password for the default vagrant user) and the ansible command should answer:
 
@@ -45,4 +47,8 @@ It will ask you to select the directory where you want to generate the SSH key. 
 
 Then, it's simple:
 
-    ansible-playbook vagrant_to_prod.yml --ask-pass
+    ansible-playbook -i inventories/setup setup.yml --ask-pass
+
+If everything goes OK, then you can run the next command. Obviously, it is important to pick the right inventory (local for vagrant, master for the server).
+
+    ansible-playbook -i inventories/local install.yml
