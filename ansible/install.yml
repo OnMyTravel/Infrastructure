@@ -3,6 +3,6 @@
 # (same users, groups, etc ...)
 - hosts: master
   remote_user: ansible
-  become: yes
   roles:
-    - secu
+    - { role: secu, tags: 'secu' }
+    - { role: mongodb, tags: 'mongodb' }

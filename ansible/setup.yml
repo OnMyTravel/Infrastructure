@@ -1,7 +1,7 @@
 # Playbook
 # We upgrade the local vagrant to reach the production state
 # (same users, groups, etc ...)
-- hosts: old
+- hosts: master
   remote_user: vagrant
   become: yes
   roles:
