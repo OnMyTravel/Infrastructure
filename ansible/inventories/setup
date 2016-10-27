@@ -1,0 +1,2 @@
+[master]
+master_vm ansible_host=172.28.128.3 ansible_user=vagrant  ansible_port=22
