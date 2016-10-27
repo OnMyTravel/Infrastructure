@@ -1,5 +1,7 @@
 - name: Updating APT-GET informations
   apt: update_cache=yes
+  become: true
 
 - name: Install nginx
   apt: name=nginx state=present
+  become: true
