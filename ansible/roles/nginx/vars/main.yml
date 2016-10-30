@@ -1,0 +1,8 @@
+site_configuration_file: '/etc/nginx/sites-available/onmy.travel'
+nginx_configuration_file: '/etc/nginx/nginx.conf'
+
+ssl_keyfile_path: '/etc/ssl/onmytravel.pem'
+ssl_certificate_path: '/etc/ssl/onmytravel.pem'
+
+nginx_error_path: '/var/log/nginx'
+nginx_error_file: '{{nginx_error_path}}/error.log'
