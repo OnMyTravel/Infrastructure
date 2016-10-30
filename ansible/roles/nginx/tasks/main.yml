@@ -6,12 +6,16 @@
   apt: name=nginx state=present
   become: true
 
+- name: Create certificate folder
+  file: path={{ certificate_folder }} state=directory owner={{ remote_user }} group={{ remote_user }}
+  become: true
+
 - name: Upload nginx certificate .crt file
-  copy: src=../../../certificates/cert.pem dest={{ ssl_certificate_path }}
+  copy: src={{ local_ssl_certificate }} dest={{ ssl_certificate_path }} owner={{ remote_user }} group={{ remote_user }}
   become: true
 
 - name: Upload nginx certificate .key file
-  copy: src=../../../certificates/key.pem dest={{ ssl_keyfile_path }}
+  copy: src={{ local_ssl_keypath }} dest={{ ssl_keyfile_path }} owner={{ remote_user }} group={{ remote_user }}
   become: true
 
 - name: Create log directory
@@ -21,14 +25,17 @@
 - name: Set Nginx configuration file
   template: src=../templates/nginx.conf.j2 dest={{ nginx_configuration_file }}
   become: true
-
-- name: Set site configuration
-  template: src=../templates/site.conf.j2 dest={{ site_configuration_file }}
-  become: true
+  notify: restart nginx
 
 - name: Disable the default configuration
   file: path=/etc/nginx/sites-enabled/default state=absent
   become: true
+
+- name: Set site configuration
+  template: src=../templates/site.conf.j2 dest={{ site_configuration_file }}
+  become: true
+  notify:
+    - restart nginx
 
 - name: Enable onmy.travel
   file: src={{ site_configuration_file }} dest=/etc/nginx/sites-enabled/onmy.travel state=link
