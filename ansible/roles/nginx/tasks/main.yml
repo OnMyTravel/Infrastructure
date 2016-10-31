@@ -23,22 +23,27 @@
   become: true
 
 - name: Set Nginx configuration file
-  template: src=../templates/nginx.conf.j2 dest={{ nginx_configuration_file }}
+  template: src=nginx.conf.j2 dest={{ nginx_configuration_file }}
   become: true
-  notify: restart nginx
+  notify:
+    - restart_nginx
 
 - name: Disable the default configuration
   file: path=/etc/nginx/sites-enabled/default state=absent
   become: true
 
 - name: Set site configuration
-  template: src=../templates/site.conf.j2 dest={{ site_configuration_file }}
+  template: src=site.conf.j2 dest={{ site_configuration_file }}
   become: true
   notify:
-    - restart nginx
+    - restart_nginx
 
 - name: Enable onmy.travel
-  file: src={{ site_configuration_file }} dest=/etc/nginx/sites-enabled/onmy.travel state=link
+  file: src={{ site_configuration_file }} dest=/etc/nginx/sites-enabled/onmy.travel.conf state=link
   become: true
   notify:
-    - restart nginx
+    - restart_nginx
+
+- name: Start nginx
+  service: name=nginx state=started enabled=yes
+  become: true
