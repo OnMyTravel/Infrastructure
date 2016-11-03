@@ -4,7 +4,7 @@
 - hosts: master
   remote_user: ansible
   roles:
-    - { role: secu, tags: 'secu' }
-    - { role: nginx, tags: 'nginx' }
-    - { role: mongodb, tags: 'mongodb' }
-    - { role: node, tags: 'node' }
+    - { role: base/secu, tags: 'secu' }
+    - { role: base/nginx, tags: 'nginx' }
+    - { role: base/mongodb, tags: 'mongodb' }
+    - { role: base/node, tags: 'node' }
