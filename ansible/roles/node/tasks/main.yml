@@ -1,0 +1,10 @@
+- name: Updating APT-GET informations
+  apt: update_cache=yes
+  become: true
+
+- name: Executing NodeJS setup script
+  shell: curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+
+- name: NodeJS installation
+  apt: name=nodejs state=present
+  become: true
