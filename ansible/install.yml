@@ -7,3 +7,4 @@
     - { role: secu, tags: 'secu' }
     - { role: nginx, tags: 'nginx' }
     - { role: mongodb, tags: 'mongodb' }
+    - { role: node, tags: 'node' }
