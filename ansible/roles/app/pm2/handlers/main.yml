@@ -1,0 +1,5 @@
+- name: start_pm2
+  shell: pm2 start {{ pm2_configuration }}
+
+- name: pm2_restart_api
+  shell: pm2 restart {{ api_app_name }}

@@ -1,0 +1,3 @@
+dependencies:
+- { role: base/git }
+- { role: app/pm2 }

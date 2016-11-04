@@ -1,0 +1,2 @@
+- name: clean_api_temporary_folder
+  file: path={{ temporary_api_folder }} state=absent
