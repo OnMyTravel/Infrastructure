@@ -1,3 +1,7 @@
+site_domain: 'dev-onmy.travel'
+site_api_subdomain: 'api.dev-onmy.travel'
+
+api_configuration_file: '/etc/nginx/sites-available/api.onmy.travel'
 site_configuration_file: '/etc/nginx/sites-available/onmy.travel'
 nginx_configuration_file: '/etc/nginx/nginx.conf'
 
