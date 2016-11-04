@@ -22,7 +22,7 @@
   file: path={{nginx_error_path}} state=directory owner={{ remote_user }} group={{ remote_user }}
   become: true
 
-- name: Set Nginx configuration file
+- name: Create main site configuration file
   template: src=nginx.conf.j2 dest={{ nginx_configuration_file }}
   become: true
   notify:
@@ -38,8 +38,17 @@
   notify:
     - restart_nginx
 
-- name: Enable onmy.travel
-  file: src={{ site_configuration_file }} dest=/etc/nginx/sites-enabled/onmy.travel.conf state=link
+- name: Create api subdomain configuration file
+  template: src=api.subdomain.conf.j2 dest={{ api_configuration_file }}
+  become: true
+  notify:
+    - restart_nginx
+
+- name: Enable sites
+  file: src={{ item.src }} dest={{ item.dest }} state=link
+  with_items:
+    - { src: '{{ site_configuration_file }}', dest: '/etc/nginx/sites-enabled/onmy.travel' }
+    - { src: '{{ api_configuration_file }}', dest: '/etc/nginx/sites-enabled/api.onmy.travel' }
   become: true
   notify:
     - restart_nginx
