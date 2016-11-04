@@ -1,0 +1,8 @@
+- name: Installing PM2
+  npm: name=pm2 global=yes
+  become: true
+
+- name: Deploy PM2 configuration
+  template: src=pm2.conf.json.j2 dest={{ pm2_configuration }}
+  notify:
+    - start_pm2

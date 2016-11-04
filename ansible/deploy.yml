@@ -1,0 +1,4 @@
+- hosts: master
+  remote_user: ansible
+  roles:
+    - { role: app/api, tags: 'api' }

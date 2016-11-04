@@ -1,0 +1,14 @@
+{
+  "apps" : [
+  {% for application in apps %}
+  {
+    "name" : "{{ application.name }}",
+    "script" : "{{ application.script }}",
+    "watch" : false,
+    "env": {
+      "NODE_ENV": "production",
+    }
+  },
+  {% endfor %}
+  ]
+}

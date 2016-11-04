@@ -1,0 +1,7 @@
+- name: Resynchronize the package index files (apt-get update)
+  apt: update_cache=yes
+  become: true
+
+- name: Git installation for deployement
+  apt: name=git state=present
+  become: true

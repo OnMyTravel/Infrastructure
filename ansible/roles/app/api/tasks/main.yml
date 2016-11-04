@@ -1,0 +1,21 @@
+- name: Create www folder to host api app
+  file: path={{ api_project_directory }} state=directory owner={{ remote_user }} group={{ remote_user }}
+  become: true
+
+- name: Creating temporary folder in order to clean
+  file: path={{ temporary_api_folder }} state=directory
+
+- name: Cloning API project into temporary folder
+  git: repo={{ git_api_repository }}
+       dest={{ temporary_api_folder }}
+       version=master
+       accept_hostkey=true
+
+- name: Installing API dependancies
+  npm: path={{ temporary_api_folder }}
+
+- name: Copy project and dependancies into final folder
+  shell: cp -R {{ temporary_api_folder }}/* {{ api_project_directory }}
+  notify:
+    - clean_api_temporary_folder
+    - pm2_restart_api
