@@ -22,9 +22,9 @@ It should take a moment, especially if you have never downloaded the Ubuntu pack
 When the process is completed, let's check that the SSH connection to the local virtual machine is allowed to ansible.
 
     cd ../ansible/
-    ansible vagrant -m ping -u vagrant --ask-pass
+    ansible all -m ping -i inventories/setup -u vagrant --ask-pass
 
-Where `vagrant` is the group of machine we want to ping and `vagrant` (the second one) is the ssh username.
+Where `all` is the group of machine we want to ping (all in this case) and `vagrant` is the ssh username.
 
 It should ask you to enter a password. Type `vagrant`(default password for the default vagrant user) and the ansible command should answer:
 

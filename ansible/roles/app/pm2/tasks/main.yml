@@ -2,7 +2,14 @@
   npm: name=pm2 global=yes
   become: true
 
+- name: Create the application directory if it does not exists
+  file: path={{ app_directory }} state=directory owner={{ remote_user }} group={{ remote_user }}
+  become: true
+
 - name: Deploy PM2 configuration
   template: src=pm2.conf.json.j2 dest={{ pm2_configuration }}
-  notify:
-    - start_pm2
+
+-  debug: msg="Force PM2 start"
+   notify:
+     - start_pm2
+   changed_when: true

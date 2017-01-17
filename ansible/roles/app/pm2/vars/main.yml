@@ -1,6 +1,7 @@
-pm2_configuration: '/var/www/pm2.conf.json'
+app_directory: '/var/www'
+pm2_configuration: '{{ app_directory }}/pm2.conf.json'
 
 api_app_name: 'api'
 
 apps:
-  - { name: '{{api_app_name}}', script: './api/index.js' }
+  - { name: '{{api_app_name}}', script: 'index.js' }

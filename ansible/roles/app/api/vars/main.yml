@@ -1,3 +1,3 @@
 api_project_directory: '/var/www/api/'
 temporary_api_folder: '~/api-tmp/'
-git_api_repository: 'git@github.com:OnMyTravel/api.git'
+git_api_repository: 'https://github.com/OnMyTravel/api.git'

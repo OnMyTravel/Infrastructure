@@ -2,9 +2,10 @@
   "apps" : [
   {% for application in apps %}
   {
-    "name" : "{{ application.name }}",
-    "script" : "{{ application.script }}",
-    "watch" : false,
+    "name"    : "{{ application.name }}",
+    "script"  : "{{ application.script }}",
+    "cwd"     : "/var/www/{{ application.name }}",
+    "watch"   : false,
     "env": {
       "NODE_ENV": "production",
     }

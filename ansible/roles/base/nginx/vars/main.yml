@@ -5,7 +5,7 @@ api_configuration_file: '/etc/nginx/sites-available/api.onmy.travel'
 site_configuration_file: '/etc/nginx/sites-available/onmy.travel'
 nginx_configuration_file: '/etc/nginx/nginx.conf'
 
-local_ssl_dir: '../../..'
+local_ssl_dir: '.'
 local_ssl_keypath: '{{local_ssl_dir}}/certificates/nginx.key'
 local_ssl_certificate: '{{local_ssl_dir}}/certificates/nginx.crt'
 

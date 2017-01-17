@@ -5,5 +5,5 @@
   remote_user: vagrant
   become: yes
   roles:
-    - users
-    - ssh
+    - { role: base/users, tags: 'users' }
+    - { role: base/ssh, tags: 'ssh' }
