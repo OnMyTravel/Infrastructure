@@ -4,7 +4,7 @@ The first version of the application has been set-up on an Ubuntu server hosted 
 
 As a proof of concept, it was enough to install the dependencies manually. But, as we try to make the application a bit more professional, we built this repository in order to automate the application deployment.
 
-** Disclaimer ** : This repository intents to be as up-to-date as possible BUT it is set to work on an Ubuntu server 14.04x64. Some incompatibilities may or may not occurs.
+** Disclaimer ** : This reposimarktory intents to be as up-to-date as possible BUT it is set to work on an Ubuntu server 14.04x64. Some incompatibilities may or may not occurs.
 
 ## Requirements
 * [Vagrant](https://www.vagrantup.com/)
@@ -26,7 +26,7 @@ When the process is completed, let's check that the SSH connection to the local 
 
 Where `all` is the group of machine we want to ping (all in this case) and `vagrant` is the ssh username.
 
-It should ask you to enter a password. Type `vagrant`(default password for the default vagrant user) and the ansible command should answer:
+It should ask you to enter a password. Type `vagrant` (default password for the default vagrant user) and the ansible command should answer:
 
     127.0.0.1 | SUCCESS => {
         "changed": false,
@@ -48,6 +48,10 @@ It will ask you to select the directory where you want to generate the SSH key. 
 Then, it's simple:
 
     ansible-playbook -i inventories/setup setup.yml --ask-pass
+
+From now, you should be able to connect on the virtual machine using the following command. The IP is set in the vagrant file to `172.28.128.3` and the default user is `ansible`. If you changed things, do not hesitate to update it accordingly.
+
+    ssh ansible@172.28.128.3 -p 2222
 
 If everything goes OK, then you can run the next command. Obviously, it is important to pick the right inventory (local for vagrant, master for the server).
 
