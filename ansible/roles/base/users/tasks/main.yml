@@ -6,7 +6,7 @@
 - name: Create an authorized_keys file for the Ansible user
   authorized_key:
     user: "{{ remote_user }}"
-    key: "{{ lookup('file', '/Users/Adrien/.ssh/id_rsa.pub' )}}"
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub' )}}"
 
 - name: Give ansible sudoer privilege
   lineinfile: dest=/etc/sudoers state=present line="{{remote_user}} ALL=(ALL) NOPASSWD:ALL"

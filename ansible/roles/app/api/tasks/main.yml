@@ -1,5 +1,9 @@
 - name: Create www folder to host api app
-  file: path={{ api_project_directory }} state=directory owner={{ remote_user }} group={{ remote_user }}
+  file:
+    path={{ api_project_directory }}
+    state=directory
+    owner={{ remote_user }}
+    group={{ remote_user }}
   become: true
 
 - name: Creating temporary folder in order to clean
@@ -11,8 +15,23 @@
        version=master
        accept_hostkey=true
 
+- name: Creating folder for the application logs
+  file:
+    path=/var/log/api
+    state=directory
+    owner={{ remote_user }}
+    group={{ remote_user }}
+  become: true
+
+- name: Setting API configuration
+  template:
+    src=production.json.j2
+    dest={{ temporary_api_folder }}/config/production.json
+
 - name: Installing API dependancies
   npm: path={{ temporary_api_folder }}
+       production=yes
+  ignore_errors: yes
 
 - name: Copy project and dependancies into final folder
   shell: cp -R {{ temporary_api_folder }}/* {{ api_project_directory }}
