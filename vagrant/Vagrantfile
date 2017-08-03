@@ -12,11 +12,18 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "bento/ubuntu-16.04"
   config.vm.box_check_update = false
 
   config.vm.network "private_network", ip: "172.28.128.3"
 
+  id_rsa_key_pub = File.read(File.join(Dir.home, ".ssh", "id_rsa.pub"))
+
+  config.ssh.insert_key = false
+  config.vm.provision :shell,
+        :inline => "echo 'appending SSH Pub Key to ~vagrant/.ssh/authorized_keys' && echo '#{id_rsa_key_pub }' >> /home/vagrant/.ssh/authorized_keys && chmod 600 /home/vagrant/.ssh/authorized_keys"
+      
+  # config.ssh.forward_agent = true
   # if Vagrant.has_plugin?("vagrant-proxyconf")
   #   config.proxy.http     = "http://192.168.50.13:8080/"
   #   config.proxy.https    = "http://192.168.50.13:8080/"

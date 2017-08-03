@@ -47,7 +47,7 @@ It will ask you to select the directory where you want to generate the SSH key. 
 
 Then, it's simple:
 
-    ansible-playbook -i inventories/setup setup.yml --ask-pass
+    ansible-playbook -i inventories/setup setup.ymlprevi
 
 From now, you should be able to connect on the virtual machine using the following command. The IP is set in the vagrant file to `172.28.128.3` and the default user is `ansible`. If you changed things, do not hesitate to update it accordingly.
 
@@ -55,4 +55,22 @@ From now, you should be able to connect on the virtual machine using the followi
 
 If everything goes OK, then you can run the next command. Obviously, it is important to pick the right inventory (local for vagrant, master for the server).
 
+### Install the dependencies
+
+The next step is to secure the server and install the few dependencies (including the database) that are required for the application to run.
+
+This command should not been used very often, only when the application infrastructure changes.
+
     ansible-playbook -i inventories/local install.yml
+
+### Deploy the application
+
+This one is supposed to be called every time you need to deploy a application version. It will fetch the new `master` version on the Github repository and install it on the server.
+
+    ansible-playbook -i inventories/local deploy.yml
+
+### Access localy to the application
+
+If you want to run the application localy, and access the API and the webfront client within the virtual machine running with vagrant, you would have to modify you `/etc/hosts/` file, adding the next line.
+
+    172.28.128.3 dev-onmy.travel api.dev-onmy.travel
