@@ -47,7 +47,7 @@ It will ask you to select the directory where you want to generate the SSH key. 
 
 Then, it's simple:
 
-    ansible-playbook -i inventories/setup setup.ymlprevi
+    ansible-playbook -i inventories/setup setup.yml
 
 From now, you should be able to connect on the virtual machine using the following command. The IP is set in the vagrant file to `172.28.128.3` and the default user is `ansible`. If you changed things, do not hesitate to update it accordingly.
 
