@@ -1,4 +1,4 @@
-- hosts: master
+- hosts: after_setup
   remote_user: ansible
   roles:
     - { role: app/api, tags: 'api' }

@@ -29,9 +29,6 @@ server {
 	listen 443;
 	server_name {{ site_api_subdomain }};
 
-	root /usr/share/nginx/html;
-	index index.html index.htm;
-
   error_log {{ nginx_error_file }};
 
 	ssl on;
