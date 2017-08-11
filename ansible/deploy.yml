@@ -2,3 +2,4 @@
   remote_user: ansible
   roles:
     - { role: app/api, tags: 'api' }
+    - { role: app/web, tags: 'web' }
