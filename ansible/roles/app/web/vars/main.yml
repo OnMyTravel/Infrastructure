@@ -1,0 +1,2 @@
+git_web_repository: 'https://github.com/OnMyTravel/website.git'
+nginx_folder: '/usr/share/nginx/html'

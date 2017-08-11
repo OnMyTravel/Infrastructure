@@ -1,0 +1,27 @@
+ - name: create temporary build directory
+   tempfile:
+     suffix: build
+     state: directory
+   register: temporary_www_folder
+
+ - name: Cloning web sources into temporary folder
+   git: repo={{ git_web_repository }}
+        dest={{temporary_www_folder.path}}
+        version=master
+        accept_hostkey=true
+
+ - name: Removing old nginx_folder
+   file:
+     path={{ nginx_folder }}
+     state=absent
+   become: true
+
+ - name: Recreating the folder to empty it
+   file:
+     path={{ nginx_folder }}
+     state=directory
+   become: true
+
+ - name: Copy project and dependancies into final folder
+   shell: cd {{temporary_www_folder.path}} && mv ./* {{ nginx_folder }}/
+   become: true

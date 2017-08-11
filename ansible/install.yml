@@ -1,7 +1,7 @@
 # Playbook
 # Let's set-up the server
 # (same users, groups, etc ...)
-- hosts: master
+- hosts: after_setup
   remote_user: ansible
   roles:
     - { role: base/secu, tags: 'secu' }
