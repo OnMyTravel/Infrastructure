@@ -7,3 +7,4 @@ vm_production_secured ansible_host=149.202.180.169 ansible_user=ansible ansible_
 [all:vars]
 site_domain='onmy.travel'
 site_api_subdomain='api.onmy.travel'
+nginx_generate_certificate=yes

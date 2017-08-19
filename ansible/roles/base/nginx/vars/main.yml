@@ -6,9 +6,11 @@ local_ssl_dir: '.'
 local_ssl_keypath: '{{local_ssl_dir}}/certificates/nginx.key'
 local_ssl_certificate: '{{local_ssl_dir}}/certificates/nginx.crt'
 
+certbot_certificate_folder: '/etc/letsencrypt/live'
 certificate_folder: '/etc/nginx/certificates'
 ssl_keyfile_path: '{{ certificate_folder }}/nginx.key'
 ssl_certificate_path: '{{ certificate_folder }}/nginx.crt'
 
+nginx_application_path: '/usr/share/nginx/html'
 nginx_error_path: '/var/log/nginx'
 nginx_error_file: '{{nginx_error_path}}/error.log'

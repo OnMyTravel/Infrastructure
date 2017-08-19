@@ -1,0 +1,25 @@
+- name: Addition of certbot repository
+  apt_repository:
+    repo='ppa:certbot/certbot'
+    state=present
+  become: true
+
+- name: Update repositories
+  apt:
+    update_cache=yes
+  become: true
+
+- name: Installation of python-certbot-nginx
+  apt:
+    name: python-certbot-nginx
+    state: present
+  become: true
+
+- name: generate certs
+  become: yes
+  shell: certbot certonly --email=contact.adriensaunier@gmail.com --non-interactive --domain www.{{site_domain}} --domain {{site_api_subdomain}} --agree-tos --webroot --webroot-path {{nginx_application_path}} --expand
+
+- name: Updating facts for nginx configuration
+  set_fact:
+    ssl_keyfile_path: '{{certbot_certificate_folder}}/www.{{ site_domain }}/privkey.pem'
+    ssl_certificate_path: '{{certbot_certificate_folder}}/www.{{ site_domain }}/fullchain.pem'

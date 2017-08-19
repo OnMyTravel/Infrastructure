@@ -6,16 +6,10 @@
   apt: name=nginx state=present
   become: true
 
-- name: Create certificate folder
-  file: path={{ certificate_folder }} state=directory owner={{ remote_user }} group={{ remote_user }}
-  become: true
-
-- name: Upload nginx certificate .crt file
-  copy: src={{ local_ssl_certificate }} dest={{ ssl_certificate_path }} owner={{ remote_user }} group={{ remote_user }}
-  become: true
-
-- name: Upload nginx certificate .key file
-  copy: src={{ local_ssl_keypath }} dest={{ ssl_keyfile_path }} owner={{ remote_user }} group={{ remote_user }}
+- name: Installation of software-properties-common
+  apt:
+    name=software-properties-common
+    state=present
   become: true
 
 - name: Create log directory
@@ -31,6 +25,26 @@
 - name: Disable the default configuration
   file: path=/etc/nginx/sites-enabled/default state=absent
   become: true
+
+- name: Set site configuration before SSL configuration
+  template: src=site-without-ssl.conf.j2 dest={{ site_configuration_file }}
+  become: true
+
+- name: Enable sites
+  file: src={{ item.src }} dest={{ item.dest }} state=link
+  with_items:
+    - { src: '{{ site_configuration_file }}', dest: '/etc/nginx/sites-enabled/onmy.travel' }
+  become: true
+
+- name: restart_nginx
+  service: name=nginx state=restarted
+  become: true
+
+- include: create-certificate.yml
+  when: nginx_generate_certificate == "yes"
+
+- include: load-certificates-from-local.yml
+  when: nginx_generate_certificate == "no"
 
 - name: Set site configuration
   template: src=site.conf.j2 dest={{ site_configuration_file }}
@@ -52,7 +66,3 @@
   become: true
   notify:
     - restart_nginx
-
-- name: Start nginx
-  service: name=nginx state=started enabled=yes
-  become: true

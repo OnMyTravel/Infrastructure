@@ -1,0 +1,11 @@
+- name: Create certificate folder
+  file: path={{ certificate_folder }} state=directory owner={{ remote_user }} group={{ remote_user }}
+  become: true
+
+- name: Upload nginx certificate .crt file
+  copy: src={{ local_ssl_certificate }} dest={{ ssl_certificate_path }} owner={{ remote_user }} group={{ remote_user }}
+  become: true
+
+- name: Upload nginx certificate .key file
+  copy: src={{ local_ssl_keypath }} dest={{ ssl_keyfile_path }} owner={{ remote_user }} group={{ remote_user }}
+  become: true
