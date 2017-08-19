@@ -31,7 +31,7 @@ server {
 
   error_log {{ nginx_error_file }};
 
-	ssl on;
+  ssl on;
 	ssl_certificate      {{ ssl_certificate_path }};
 	ssl_certificate_key  {{ ssl_keyfile_path }};
 
