@@ -14,5 +14,54 @@
   become: true
 
 - name: Create MongoDB dump directory
-  file: path={{ mongodump_directory }} state=directory
   become: true
+  file:
+    path: "{{ mongodump_directory }}"
+    state: directory
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+
+- name: Create a custom data directory for mongodb
+  become: true
+  file:
+    path: "{{ mongo_data_directory }}"
+    state: directory
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+
+- name: Create log directory for mongodb
+  become: true
+  file:
+    path: "{{ mongo_log_directory }}"
+    state: directory
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+
+- name: Create log file for mongodb
+  become: true
+  file:
+    path: "{{ mongo_log_directory }}/mongodb.log"
+    state: touch
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+
+- name: Create the mongodb startup file
+  become: true
+  template:
+    dest: "{{ mongod_conf }}"
+    src: mongod.conf.j2
+    mode: 0655
+
+- name: Set systemd file
+  become: true
+  template:
+    dest: "{{ mongo_service }}"
+    src: mongodb.service.j2
+
+- name: Enable mongod systemd service and start it
+  become: true
+  systemd:
+    daemon_reload: yes
+    name: mongodb
+    state: started
+    enabled: yes

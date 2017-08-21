@@ -1,0 +1,12 @@
+# mongo.conf
+smallfiles=true
+
+#where to log
+logpath={{ mongo_log_directory }}/mongodb.log
+
+logappend=true
+
+dbpath={{ mongo_data_directory }}
+
+# Ping interval for Mongo monitoring server.
+#mms-interval = <seconds>
