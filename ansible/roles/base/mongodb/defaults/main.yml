@@ -1,1 +1,5 @@
 mongodump_directory: /var/mongodb/dump
+mongo_data_directory: /var/mongodb/data
+mongo_log_directory: /var/log/mongodb
+mongo_service: /lib/systemd/system/mongodb.service
+mongod_conf: /etc/init.d/mongodb.conf
