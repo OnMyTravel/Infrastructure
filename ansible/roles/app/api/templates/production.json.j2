@@ -1,6 +1,6 @@
 {
-  "app-secret": "supersecret",
-  "app": {    
+  "app-secret": "{{ vault_app_secret }}",
+  "app": {
     "port": 3000,
     "logs": {
       "enabled": true,
@@ -11,11 +11,11 @@
       "host": "mongodb://localhost/onmytravel"
   },
   "storage": {
-    "provider": "provider",
-    "username": "KE2QXVrk",
-    "password": "NUTRXm4MzEsNDUfGa4NUv9LA",
-    "authUrl": "https://auth.cloud.ovh.net/",
-    "tenantId": "xCE8cBPZyKCSLBjKZ8HmW8KtU7XxRyNu",
-    "region": "DxWt"
+    "provider": "openstack",
+    "username": "{{ vault_openstack_username }}",
+    "password": "{{ vault_openstack_password }}",
+    "authUrl": "{{ vault_openstack_auth_url }}",
+    "tenantId": "{{ vault_openstack_tenantid }}",
+    "region": "{{ vault_openstack_region }}"
   }
 }
