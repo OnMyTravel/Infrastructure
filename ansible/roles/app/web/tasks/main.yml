@@ -4,11 +4,23 @@
      state: directory
    register: temporary_www_folder
 
+ - debug:
+    msg: "Using {{ temporary_www_folder }} has build folder"
+
  - name: Cloning web sources into temporary folder
    git: repo={{ git_web_repository }}
         dest={{temporary_www_folder.path}}
         version=master
         accept_hostkey=true
+
+ - name: Installing React dependancies
+   npm: path={{ temporary_www_folder.path }}
+       production=yes
+
+ - name: Build the application production version
+   shell: npm run build
+   args:
+      chdir: "{{ temporary_www_folder.path }}"
 
  - name: Removing old nginx_folder
    file:
@@ -23,5 +35,5 @@
    become: true
 
  - name: Copy project and dependancies into final folder
-   shell: cd {{temporary_www_folder.path}} && mv ./* {{ nginx_folder }}/
+   shell: cd {{temporary_www_folder.path}} && mv ./build/* {{ nginx_folder }}/
    become: true
