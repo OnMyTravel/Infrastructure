@@ -14,6 +14,7 @@ boxes/*
 /vagrant-spec.config.rb
 *.retry
 /vagrant/keys/*
+ansible/vault_password
 
 # Bundler/Rubygems
 *.gem
