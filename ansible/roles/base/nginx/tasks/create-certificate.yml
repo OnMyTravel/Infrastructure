@@ -15,9 +15,13 @@
     state: present
   become: true
 
-- name: generate certs
+- name: Generate certification for website
+  shell: certbot certonly --email=contact.adriensaunier@gmail.com --non-interactive --domain www.{{site_domain}} --agree-tos --webroot --webroot-path {{nginx_application_path}} --expand
   become: yes
-  shell: certbot certonly --email=contact.adriensaunier@gmail.com --non-interactive --domain www.{{site_domain}} --domain {{site_api_subdomain}} --agree-tos --webroot --webroot-path {{nginx_application_path}} --expand
+
+- name: Generate certification for API
+  shell: certbot certonly --email=contact.adriensaunier@gmail.com --non-interactive --domain {{site_api_subdomain}} --agree-tos --webroot --webroot-path {{nginx_application_path}} --expand
+  become: yes
 
 - name: Updating facts for nginx configuration
   set_fact:
