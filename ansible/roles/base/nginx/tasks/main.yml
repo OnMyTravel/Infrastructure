@@ -1,6 +1,6 @@
-- name: Updating APT-GET informations
-  apt: update_cache=yes
-  become: true
+#- name: Updating APT-GET informations
+#  apt: update_cache=yes
+#  become: true
 
 - name: Install nginx
   apt: name=nginx state=present
@@ -40,10 +40,10 @@
   service: name=nginx state=restarted
   become: true
 
-- include: create-certificate.yml
+- import_tasks: create-certificate.yml
   when: nginx_generate_certificate == "yes"
 
-- include: load-certificates-from-local.yml
+- import_tasks: load-certificates-from-local.yml
   when: nginx_generate_certificate == "no"
 
 - name: Set site configuration

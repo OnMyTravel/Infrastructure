@@ -4,10 +4,10 @@
     state=present
   become: true
 
-- name: Update repositories
-  apt:
-    update_cache=yes
-  become: true
+#- name: Update repositories
+#  apt:
+#    update_cache=yes
+#  become: true
 
 - name: Installation of python-certbot-nginx
   apt:
