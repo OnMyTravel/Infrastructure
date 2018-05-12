@@ -1,6 +1,6 @@
-#- name: Updating APT-GET informations
-#  apt: update_cache=yes
-#  become: true
+# - name: Updating APT-GET informations
+#   apt: update_cache=yes
+#   become: true
 
 - name: Install nginx
   apt: name=nginx state=present
@@ -16,7 +16,7 @@
   file: path={{nginx_error_path}} state=directory owner={{ remote_user }} group={{ remote_user }}
   become: true
 
-- name: Create main site configuration file
+- name: Create main NGINX configuration file
   template: src=nginx.conf.j2 dest={{ nginx_configuration_file }}
   become: true
   notify:
@@ -26,25 +26,13 @@
   file: path=/etc/nginx/sites-enabled/default state=absent
   become: true
 
-- name: Set site configuration before SSL configuration
-  template: src=site-without-ssl.conf.j2 dest={{ site_configuration_file }}
+- name: Set site configuration for SSL configuration
+  template: src=site-for-ssl.conf.j2 dest={{ site_ssl_configuration_file }}
   become: true
 
-- name: Enable sites
-  file: src={{ item.src }} dest={{ item.dest }} state=link
-  with_items:
-    - { src: '{{ site_configuration_file }}', dest: '/etc/nginx/sites-enabled/onmy.travel' }
-  become: true
-
-- name: restart_nginx
-  service: name=nginx state=restarted
-  become: true
-
-- import_tasks: create-certificate.yml
-  when: nginx_generate_certificate == "yes"
-
-- import_tasks: load-certificates-from-local.yml
-  when: nginx_generate_certificate == "no"
+- name: setting fact Debian apache2
+  set_fact:
+    generate_site_config_with_ssl: false
 
 - name: Set site configuration
   template: src=site.conf.j2 dest={{ site_configuration_file }}
@@ -64,5 +52,13 @@
     - { src: '{{ site_configuration_file }}', dest: '/etc/nginx/sites-enabled/onmy.travel' }
     - { src: '{{ api_configuration_file }}', dest: '/etc/nginx/sites-enabled/api.onmy.travel' }
   become: true
-  notify:
-    - restart_nginx
+
+- name: restart_nginx
+  service: name=nginx state=restarted
+  become: true
+
+- import_tasks: create-certificate.yml
+  when: nginx_generate_certificate == "yes"
+
+#- import_tasks: load-certificates-from-local.yml
+#  when: nginx_generate_certificate == "no"

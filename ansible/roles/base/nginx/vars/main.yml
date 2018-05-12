@@ -1,5 +1,6 @@
 api_configuration_file: '/etc/nginx/sites-available/api.onmy.travel'
 site_configuration_file: '/etc/nginx/sites-available/onmy.travel'
+site_ssl_configuration_file: '/etc/nginx/sites-available/ssl.onmy.travel'
 nginx_configuration_file: '/etc/nginx/nginx.conf'
 
 local_ssl_dir: '.'
