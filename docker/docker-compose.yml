@@ -1,0 +1,30 @@
+version: "3"
+services:
+  
+  db:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mongo-network
+    ports:
+      - 27017:27017
+
+  admin:
+    container_name: mongo-client
+    image: mongo-express
+    ports:
+      - 8081:8081
+    networks:
+      - mongo-network
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+    depends_on:
+      - db
+
+networks:
+  mongo-network:
+
+volumes:
+  mongo-data:
